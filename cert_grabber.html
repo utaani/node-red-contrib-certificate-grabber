@@ -21,6 +21,8 @@
             hostType: {value: 'msg'},
             port: {value: 'payload.port', validate: RED.validators.typedInput("portType")},
             portType: {value: 'msg'},
+            port: {value: 'payload.servername', validate: RED.validators.typedInput("servernameType")},
+            servernameType: {value: 'msg'},
             timeout: {value: 30, validate: function(v) {
                 return v == undefined || v >= 0;
             }}
@@ -39,8 +41,10 @@
             // For backwards compatibility with nodes older than 1.0.2, let's use the msg.payload as the default input
             $('#node-input-host').val(this.host || 'payload.host');
             $('#node-input-port').val(this.port || 'payload.port');
+            $('#node-input-servername').val(this.servername || 'payload.servername');
             $('#node-input-hostType').val(this.hostType || 'msg');
             $('#node-input-portType').val(this.portType || 'msg');
+            $('#node-input-servernameType').val(this.servernameType || 'msg');
             
             // Show the hostname field as a typedinput
             $("#node-input-host").typedInput({
@@ -54,6 +58,13 @@
                 type: 'num',
                 types: ['num', 'msg'],
                 typeField: "#node-input-portType"
+            })
+          
+            // Show the servername field as a typedinput
+            $("#node-input-servername").typedInput({
+                type: 'str',
+                types: ['str', 'msg'],
+                typeField: "#node-input-servernameType"
             })
         }
     });
@@ -75,6 +86,11 @@
         <input type="hidden" id="node-input-portType">
     </div>
     <div class="form-row">
+        <label for="node-input-servername"><i class="fa fa-globe"></i> SNI servername</label>
+        <input type="text" id="node-input-servername">
+        <input type="hidden" id="node-input-servernameType">
+    </div>
+    <div class="form-row">
         <label for="node-input-timeout"><i class="fa fa-clock-o"></i> Timeout</label>
         <input type="number" id="node-input-timeout" min="0">
     </div>
@@ -88,6 +104,8 @@
     The hostname or IP address to which this node should connect.  The hostname value can be specified in the config screen directly or via an input message field.</p>
     <p><strong>Port:</strong><br/>
     The port (of the specified host) to which this node should connect.  The port value can be specified in the config screen directly or via an input message field.</p>
+    <p><strong>SNI servername:</strong><br/>
+    The SNI servername (of the specified host) to which this node should connect.  The SNI servername value can be specified in the config screen directly or via an input message field.</p>
     <p><strong>Timeout:</strong><br/>
     The timeout (in seconds) after which the node should stop trying to connect to the specified host.</p>
 </script>
