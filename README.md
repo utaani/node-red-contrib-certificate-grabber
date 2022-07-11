@@ -84,5 +84,8 @@ The hostname or IP address to which this node should connect.  The hostname valu
 ### Port
 The port (of the specified host) to which this node should connect.  Because a single hostname can have multiple services running (each listening to separate ports), which might use different certificates.  The port value can be specified in the config screen directly or via an input message field.
 
+### SNI servername
+The SNI servername to which this node should connect.  Because a single hostname can have multiple services running with SNI, which might use different certificates.  The SNI servername value can be specified in the config screen directly or via an input message field.
+
 ### Timeout
 After this timeout (in seconds) the node will stop trying to connect to the specified port on the specified host.  
