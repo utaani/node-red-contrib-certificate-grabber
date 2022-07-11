@@ -22,9 +22,10 @@
         // (for backwards compatibility with nodes before 1.0.2)
         this.host = config.host || 'payload.host';
         this.port = config.port || 'payload.port';
+        this.servername = config.servername || 'payload.servername';
         this.hostType = config.hostType || 'msg';
         this.portType = config.portType || 'msg';
-        
+        this.servernameType = config.servernameType || 'msg';
         this.timeout = config.timeout;
         
         const node = this;
@@ -70,11 +71,31 @@
                 return;
             }
 
-            var options = {
-                host: host,
-                port: parseInt(port),
-                checkServerIdentity: () => undefined,
-                rejectUnauthorized: false
+            let servername;
+
+            if(node.servernameType == 'msg') {
+                host =  RED.util.getMessageProperty(msg, node.servername);
+            }
+            else { // 'str'
+                host = node.servername
+            }
+         
+            if(servername == undefined) {
+                var options = {
+                    host: host,
+                    port: parseInt(port),
+                    checkServerIdentity: () => undefined,
+                    rejectUnauthorized: false
+                }
+            }       
+            else {
+                var options = {
+                    host: host,
+                    port: parseInt(port),
+                    servername: servername,
+                    checkServerIdentity: () => undefined,
+                    rejectUnauthorized: false
+                }
             }
 
             try {
