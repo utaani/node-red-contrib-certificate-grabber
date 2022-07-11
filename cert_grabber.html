@@ -21,8 +21,8 @@
             hostType: {value: 'msg'},
             port: {value: 'payload.port', validate: RED.validators.typedInput("portType")},
             portType: {value: 'msg'},
-            port: {value: 'payload.servername', validate: RED.validators.typedInput("servernameType")},
-            servernameType: {value: 'msg'},
+            servername: {value: '', validate: RED.validators.typedInput("servernameType")},
+            servernameType: {value: 'str'},
             timeout: {value: 30, validate: function(v) {
                 return v == undefined || v >= 0;
             }}
